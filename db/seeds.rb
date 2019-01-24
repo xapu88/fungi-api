@@ -9,27 +9,31 @@
 observations = Observation.create(
   [
     {
-      number: 000001,
+      number: "000001",
       description: "Made of chocolate",
       area: "Novi Sad",
-      location: "Sadovi"
+      location: "Sadovi",
+      legator: User.find_by(email: "hkalanj@gmail.com")
     },
     {
-      number: 000002,
+      number: "000002",
       description: "Only for replying to mentions and DMs",
       area: "Beograd",
-      location: "Surcin"
+      location: "Surcin",
+      legator: User.find_by(email: "hkalanj@gmail.com")
     },
     {
-      number: 000003,
+      number: "000003",
       description: "A mafia crime drama starring Berlusconi",
       area: "Novi Sad",
-      location: "Veternik"
+      location: "Veternik",
+      legator: User.find_by(email: "hkalanj@gmail.com")
     },
     {
-      number: 000004,
+      number: "000004",
       description: "Like Uno but involves drinking",
       area: "Fruska Gora",
-      location: "Jazak"
+      location: "Jazak",
+      legator: User.find_by(email: "hkalanj@gmail.com")
     }
   ])

@@ -23,9 +23,9 @@ default: &default
 
 development:
   <<: *default
-  database: fungi-api_development
-  username: rails_dev
-  password: 1234
+  database: <%= Rails.application.secrets.database[:name] %>
+  username: <%= Rails.application.secrets.database[:username] %>
+  password: <%= Rails.application.secrets.database[:password] %>
   host: localhost
   port: 5432
 
@@ -61,9 +61,9 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: fungi-api_test
-  username: rails_dev
-  password: 1234
+  database: <%= Rails.application.secrets.database[:name] %>
+  username: <%= Rails.application.secrets.database[:username] %>
+  password: <%= Rails.application.secrets.database[:password] %>
   host: localhost
   port: 5432
 
