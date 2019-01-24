@@ -9,14 +9,13 @@ module Api::V1
         cookies.signed[:jwt] = { value: created_jwt, httponly: true, expires: 1.hour.from_now }
         render json: { username: user.username }
       else
-        render json: {
-          error: 'Username or password incorrect'
-        }, status: 401
+        render json: { error: 'Username or password incorrect' }, status: 401
       end
     end
 
     def destroy
       cookies.delete(:jwt)
+      head :ok
     end
 
   end
