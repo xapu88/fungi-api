@@ -44,6 +44,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'rack-cors', :require => 'rack/cors'
-gem 'fast_jsonapi'
-gem 'jwt'
+gem 'rack-cors', :require => 'rack/cors' # for allowing CORS access to client application
+gem 'fast_jsonapi' # for JSON serialization of models
+gem 'jwt' # for JSON Web Token based authentication, in our case using httponly cookies
+gem 'kaminari-activerecord' # for pagination

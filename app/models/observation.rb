@@ -8,10 +8,11 @@ class Observation < ApplicationRecord
 
   after_create :delegate_number
 
+
   private
 
-  def delegate_number
-    next_number = Observation.count + 1
-    self.update_attributes(number: next_number.to_s.rjust(6, '0'))
-  end
+    def delegate_number
+      next_number = Observation.count + 1
+      self.update_attributes(number: next_number.to_s.rjust(6, '0'))
+    end
 end

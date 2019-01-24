@@ -20,17 +20,22 @@ class ApplicationController < ActionController::API
     end
   end
 
+  def page_param
+    params[:page] || 1
+  end
+
+
   private
 
-  def token
-    cookies.signed[:jwt]
-  end
+    def token
+      cookies.signed[:jwt]
+    end
 
-  def auth
-    Auth.decode(token)
-  end
+    def auth
+      Auth.decode(token)
+    end
 
-  def auth_present?
-    !!token
-  end
+    def auth_present?
+      !!token
+    end
 end
