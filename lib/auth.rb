@@ -14,7 +14,7 @@ class Auth
 
   def self.decode(token)
     JWT.decode(
-      token, 
+      token,
       auth_secret,
       true,
       { algorithm: ALGORITHM }
@@ -22,7 +22,11 @@ class Auth
   end
 
   def self.auth_secret
-    Rails.application.secrets.secret_key_base
+    if Rails.env.production?
+      ENV['SECRET_KEY_BASE']
+    else
+      Rails.application.secrets.secret_key_base
+    end
   end
 
 end
