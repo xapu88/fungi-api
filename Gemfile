@@ -48,3 +48,4 @@ gem 'rack-cors', :require => 'rack/cors' # for allowing CORS access to client ap
 gem 'fast_jsonapi' # for JSON serialization of models
 gem 'jwt' # for JSON Web Token based authentication, in our case using httponly cookies
 gem 'kaminari-activerecord' # for pagination
+gem 'cancancan', '~> 2.0' # for authorization (admin, moderator and regular user access)

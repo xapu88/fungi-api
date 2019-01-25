@@ -11,6 +11,10 @@ class ApplicationController < ActionController::API
     render json: {error: "unauthorized"}, status: 401 unless logged_in?
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: {error: "forbidden"}, status: 403
+  end
+
   def current_user
     if auth_present?
       user = User.find(auth["user"])
