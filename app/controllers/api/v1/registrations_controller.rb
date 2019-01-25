@@ -1,15 +1,12 @@
 module Api::V1
-  class UsersController < ApplicationController
-    skip_before_action :authenticate_user, only: [:show]
-
-    def show
-      user = User.find(params[:id])
-      render json: UserSerializer.new(user).serialized_json
-    end
+  class RegistrationsController < ApplicationController
+    skip_before_action :authenticate_user
 
     def create
       user = User.new(user_params)
       if user.save
+        created_jwt = Auth.issue({user: user.id})
+        cookies.signed[:jwt] = { value: created_jwt, httponly: true, expires: 1.hour.from_now }
         render json: { username: user.username }, status: 200
       else
         render json: { errors: user.errors }, status: 422
