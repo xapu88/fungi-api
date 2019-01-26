@@ -1,6 +1,7 @@
 class Observation < ApplicationRecord
   belongs_to :legator, class_name: "User"
   belongs_to :determinator, class_name: "User", optional: true
+  belongs_to :species, optional: true
 
   validates :area, :location, :description, :observed_at, presence: true
   validates :area, :location, length: { minimum: 3, maximum: 100 }

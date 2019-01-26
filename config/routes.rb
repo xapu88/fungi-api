@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       delete '/logout', to: "sessions#destroy"
       resources :users, except: :index
       resources :observations
+      resources :species, only: [:index, :show]
     end
   end
 end

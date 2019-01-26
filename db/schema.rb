@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_25_153553) do
+ActiveRecord::Schema.define(version: 2019_01_26_180240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,22 @@ ActiveRecord::Schema.define(version: 2019_01_25_153553) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "species", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "genus"
+    t.string "familia"
+    t.string "ordo"
+    t.string "subclassis"
+    t.string "classis"
+    t.string "subphylum"
+    t.string "phylum"
+    t.boolean "edible"
+    t.boolean "cultivated"
+    t.boolean "poisonous"
+    t.boolean "medicinal"
   end
 
   create_table "users", force: :cascade do |t|
