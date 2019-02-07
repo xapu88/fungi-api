@@ -1,17 +1,3 @@
-root = "/home/ubuntu/fungi_api/current"
-working_directory root
-
-pid "#{root}/tmp/pids/unicorn.pid"
-
-stderr_path "#{root}/log/unicorn.log"
-stdout_path "#{root}/log/unicorn.log"
-
-worker_processes Integer(ENV['WEB_CONCURRENCY'])
-timeout 30
-preload_app true
-
-listen '/tmp/unicorn.fungi_api.sock', backlog: 64
-
 before_fork do |server, worker|
   Signal.trap 'TERM' do
     puts 'Unicorn master intercepting TERM and sending myself QUIT instead'

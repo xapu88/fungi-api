@@ -5,7 +5,7 @@ module Api::V1
     def create
       user = User.new(user_params)
       if user.save
-        created_jwt = Auth.issue({user: user.id})
+        created_jwt = Services::Auth.issue({user: user.id})
         cookies.signed[:jwt] = { value: created_jwt, httponly: true, expires: 1.hour.from_now }
         render json: { username: user.username }, status: 200
       else

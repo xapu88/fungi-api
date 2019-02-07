@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ::ActionController::Cookies
+  include Services::Auth
 
   before_action :authenticate_user
 
@@ -36,7 +37,7 @@ class ApplicationController < ActionController::API
     end
 
     def auth
-      Auth.decode(token)
+      Services::Auth.decode(token)
     end
 
     def auth_present?

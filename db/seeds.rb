@@ -22,31 +22,31 @@ users = User.create(
 observations = Observation.create(
   [
     {
-      number: "000001",
       description: "Made of chocolate",
       area: "Novi Sad",
       location: "Sadovi",
+      observed_at: "2018-06-22",
       legator: User.find_by(email: "test@fungi.com")
     },
     {
-      number: "000002",
       description: "Only for replying to mentions and DMs",
       area: "Beograd",
       location: "Surcin",
+      observed_at: "2018-09-02",
       legator: User.find_by(email: "test@fungi.com")
     },
     {
-      number: "000003",
       description: "A mafia crime drama starring Berlusconi",
       area: "Novi Sad",
       location: "Veternik",
+      observed_at: "2017-04-30",
       legator: User.find_by(email: "test@fungi.com")
     },
     {
-      number: "000004",
       description: "Like Uno but involves drinking",
       area: "Fruska Gora",
       location: "Jazak",
+      observed_at: "2018-11-11",
       legator: User.find_by(email: "test@fungi.com")
     }
   ]

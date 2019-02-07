@@ -20,9 +20,12 @@ server '35.164.224.228',
 
 set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}"
 
+
+set :pty, true
 set :ssh_options, {
   forward_agent: true,
   auth_methods: %w(publickey),
+  keys: %w(/home/hari/Documents/fungi-ec2-aws.pem),
   user: 'ubuntu',
 }
 
