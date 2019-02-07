@@ -88,6 +88,6 @@ test:
 #
 production:
   <<: *default
-  database: fungi-api_production
-  username: fungi-api
+  database: fungi_api_db
+  username: fungi_api_db_user
   password: <%= ENV['FUNGI-API_DATABASE_PASSWORD'] %>
