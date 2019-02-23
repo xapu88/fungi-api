@@ -33,7 +33,8 @@ class ApplicationController < ActionController::API
   private
 
     def token
-      cookies.signed[:jwt]
+      request.env["HTTP_AUTHORIZATION"].scan(/Bearer
+        (.*)$/).flatten.last
     end
 
     def auth
@@ -41,6 +42,7 @@ class ApplicationController < ActionController::API
     end
 
     def auth_present?
-      !!token
+      !!request.env.fetch("HTTP_AUTHORIZATION",
+        "").scan(/Bearer/).flatten.first
     end
 end
