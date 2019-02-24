@@ -8,7 +8,7 @@ module Api::V1
       user = User.find_by(email: params[:email])
       if user && user.authenticate(params[:password])
         created_jwt = Services::Auth.issue({user: user.id})
-        render json: { username: user.username, jwt: created_jwt }
+        render json: { jwt: created_jwt }, status: 200
       else
         render json: { error: 'Email or password incorrect' }, status: 401
       end
