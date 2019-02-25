@@ -6,6 +6,7 @@ module Services
     ALGORITHM = 'HS256'
 
     def self.issue(payload)
+      puts auth_secret
       JWT.encode(
         payload,
         auth_secret,

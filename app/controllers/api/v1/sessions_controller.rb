@@ -3,8 +3,11 @@ module Api::V1
     skip_before_action :authenticate_user
 
     def create
+      puts auth_params[:email]
       user = User.find_by(email: auth_params[:email])
+      puts user.email
       if user && user.authenticate(auth_params[:password])
+        puts "USER ID: #{user.id}"
         created_jwt = Services::Auth.issue({user: user.id})
         render json: { jwt: created_jwt }, status: 200
       else
