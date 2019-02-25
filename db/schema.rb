@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_26_180240) do
+ActiveRecord::Schema.define(version: 2019_02_24_221256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "habitats", force: :cascade do |t|
+    t.string "name"
+    t.text "floral_species_ids", default: [], array: true
+  end
 
   create_table "observations", force: :cascade do |t|
     t.string "number"
@@ -56,6 +61,11 @@ ActiveRecord::Schema.define(version: 2019_01_26_180240) do
     t.boolean "cultivated"
     t.boolean "poisonous"
     t.boolean "medicinal"
+  end
+
+  create_table "substrates", force: :cascade do |t|
+    t.string "name"
+    t.text "floral_species_ids", default: [], array: true
   end
 
   create_table "users", force: :cascade do |t|
