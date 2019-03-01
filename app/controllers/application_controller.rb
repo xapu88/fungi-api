@@ -44,7 +44,7 @@ class ApplicationController < ActionController::API
     end
 
     def auth_present?
-      !!request.env.fetch("AUTHORIZATION",
-        "").scan(/Bearer/).flatten.first
+      !!request.env["AUTHORIZATION"].scan(/Bearer
+        (.*)$/).flatten.first
     end
 end

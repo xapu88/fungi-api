@@ -16,7 +16,7 @@ module Api::V1
 
     def create
       observation = Observation.new(observation_params)
-      observation.legator = current_user
+      observation.legator = @current_user if @current_user.present?
       if observation.save
         render json: ObservationSerializer.new(observation).serialized_json, status: 200
       else
