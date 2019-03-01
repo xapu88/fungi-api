@@ -33,6 +33,8 @@ class ApplicationController < ActionController::API
   private
 
     def token
+      logger.debug "Headers: #{request.headers["AUTHORIZATION"]}"
+      logger.debug "Headers bearer: #{request.headers["AUTHORIZATION"].scan(/Bearer(.*)$/)}"
       request.headers["AUTHORIZATION"].scan(/Bearer
         (.*)$/).flatten.last
     end
