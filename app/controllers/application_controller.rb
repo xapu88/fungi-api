@@ -44,7 +44,7 @@ class ApplicationController < ActionController::API
     end
 
     def auth_present?
-      logger.debug "Auth present 0: #{request.env["AUTHORIZATION"]}"
+      logger.debug "Auth present 0: #{request.headers["AUTHORIZATION"]}"
       logger.debug "Auth present 1: #{request.env.fetch("AUTHORIZATION", "")}"
       logger.debug "Auth present 2: #{request.env.fetch("AUTHORIZATION", "").scan(/Bearer/)}"
       logger.debug "Auth present 3: #{request.env.fetch("AUTHORIZATION", "").scan(/Bearer/).flatten.first}"
