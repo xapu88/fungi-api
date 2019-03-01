@@ -30,9 +30,6 @@ namespace :old_data do
     end
 
     puts "Species import complete \n#{added_species.length} species imported\n#{existing_species.length} species already present in the database\n#{incomplete_species.length} species not added due to incomplete data"
-
-    write_to_csv_file incomplete_species, 'db/old_data/logs/not_added_species.csv'
-    write_to_csv_file existing_species, 'db/old_data/logs/existing_species.csv'
   end
 
 end
