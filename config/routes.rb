@@ -6,7 +6,12 @@ Rails.application.routes.draw do
       post '/login', to: "sessions#create"
       resources :users, except: :index
       resources :observations
-      resources :species, only: [:index, :show]
+      resources :species
+      resources :habitats
+      resources :habitat_categories
+      resources :substrates
+      resources :substrate_categories
+      resources :floral_species
     end
   end
 end
