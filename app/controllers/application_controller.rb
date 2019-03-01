@@ -17,7 +17,9 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
+    logger.debug "Auth param should be present: #{auth_present?}"
     if auth_present?
+      logger.debug "Auth-user: #{ auth["user"] }"
       user = User.find(auth["user"])
       if user
         @current_user ||= user
