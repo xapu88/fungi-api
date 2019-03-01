@@ -17,9 +17,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    logger.debug "Auth param should be present: #{auth_present?}"
     if auth_present?
-      logger.debug "Auth-user: #{ auth["user"] }"
       user = User.find(auth["user"])
       if user
         @current_user ||= user
@@ -35,7 +33,7 @@ class ApplicationController < ActionController::API
   private
 
     def token
-      request.env["AUTHORIZATION"].scan(/Bearer
+      request.headers["AUTHORIZATION"].scan(/Bearer
         (.*)$/).flatten.last
     end
 
@@ -44,11 +42,7 @@ class ApplicationController < ActionController::API
     end
 
     def auth_present?
-      logger.debug "Auth present 0: #{request.headers["AUTHORIZATION"]}"
-      logger.debug "Auth present 1: #{request.env.fetch("AUTHORIZATION", "")}"
-      logger.debug "Auth present 2: #{request.env.fetch("AUTHORIZATION", "").scan(/Bearer/)}"
-      logger.debug "Auth present 3: #{request.env.fetch("AUTHORIZATION", "").scan(/Bearer/).flatten.first}"
-      !!request.env.fetch("AUTHORIZATION",
+      !!request.headers.fetch("AUTHORIZATION",
         "").scan(/Bearer/).flatten.first
     end
 end
