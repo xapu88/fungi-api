@@ -17,6 +17,7 @@ module Api::V1
     def create
       observation = Observation.new(observation_params)
       observation.legator = @current_user if @current_user.present?
+      observation.habitat = observation.create_habitat(params[:habitat_category_id], params[:habitat_note], params[:habitat_species_ids])
       if observation.save
         render json: ObservationSerializer.new(observation).serialized_json, status: 200
       else
@@ -45,7 +46,7 @@ module Api::V1
       end
 
       def observation_params
-        params.require(:observation).permit(:description, :area, :location, :longitude, :latitude, :altitude, :quantity, :explored_surface, :sample, :external_url, :approved, :observed_at, :species_id, :habitat_id, :substrate_id)
+        params.require(:observation).permit(:description, :area, :location, :longitude, :latitude, :altitude, :quantity, :explored_surface, :sample, :external_url, :approved, :observed_at, :species_id)
       end
 
   end
