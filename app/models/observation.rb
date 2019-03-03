@@ -12,26 +12,30 @@ class Observation < ApplicationRecord
   after_create :delegate_number
 
   def create_habitat(category_id, note = nil, habitat_species_ids = [])
-    habitat_category = HabitatCategory.find(category_id)
-    habitat = Habitat.new(habitat_category: habitat_category, note: note)
-    unless !habitat_species_ids.present? || habitat_species_ids.empty?
-      habitat_species_ids.each do |habitat_species_id|
-        habitat.floral_species << FloralSpecies.find(habitat_species_id)
+    if category_id.present?
+      habitat_category = HabitatCategory.find(category_id)
+      habitat = Habitat.new(habitat_category: habitat_category, note: note)
+      unless !habitat_species_ids.present? || habitat_species_ids.empty?
+        habitat_species_ids.each do |habitat_species_id|
+          habitat.floral_species << FloralSpecies.find(habitat_species_id)
+        end
       end
+      return habitat if habitat.save
     end
-    return habitat if habitat.save
     return nil
   end
 
   def create_substrate(category_id, note = nil, substrate_species_ids = [])
-    substrate_category = SubstrateCategory.find(category_id)
-    substrate = Substrate.new(substrate_category: substrate_category, note: note)
-    unless !substrate_species_ids.present? || substrate_species_ids.empty?
-      substrate_species_ids.each do |substrate_species_id|
-        substrate.floral_species << FloralSpecies.find(substrate_species_id)
+    if category_id.present?
+      substrate_category = SubstrateCategory.find(category_id)
+      substrate = Substrate.new(substrate_category: substrate_category, note: note)
+      unless !substrate_species_ids.present? || substrate_species_ids.empty?
+        substrate_species_ids.each do |substrate_species_id|
+          substrate.floral_species << FloralSpecies.find(substrate_species_id)
+        end
       end
+      return substrate if substrate.save
     end
-    return substrate if substrate.save
     return nil
   end
 
