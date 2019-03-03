@@ -18,6 +18,7 @@ module Api::V1
       observation = Observation.new(observation_params)
       observation.legator = @current_user if @current_user.present?
       observation.habitat = observation.create_habitat(params[:habitat_category_id], params[:habitat_note], params[:habitat_species_ids])
+      observation.substrate = observation.create_substrate(params[:substrate_category_id], params[:substrate_note], params[:substrate_species_ids])
       if observation.save
         render json: ObservationSerializer.new(observation).serialized_json, status: 200
       else

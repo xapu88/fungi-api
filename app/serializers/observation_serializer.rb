@@ -5,5 +5,5 @@ class ObservationSerializer
   belongs_to :determinator, record_type: :user
   belongs_to :species, record_type: :species
   belongs_to :habitat
-  # belongs_to :substrate
+  belongs_to :substrate
 end

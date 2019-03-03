@@ -3,7 +3,7 @@ class Observation < ApplicationRecord
   belongs_to :determinator, class_name: "User", optional: true
   belongs_to :species, optional: true
   belongs_to :habitat, optional: true
-  # belongs_to :substrate, optional: true
+  belongs_to :substrate, optional: true
 
   validates :area, :location, :description, :observed_at, presence: true
   validates :area, :location, length: { minimum: 3, maximum: 100 }
@@ -20,6 +20,18 @@ class Observation < ApplicationRecord
       end
     end
     return habitat if habitat.save
+    return nil
+  end
+
+  def create_substrate(category_id, note = nil, substrate_species_ids = [])
+    substrate_category = SubstrateCategory.find(category_id)
+    substrate = Substrate.new(substrate_category: substrate_category, note: note)
+    unless !substrate_species_ids.present? || substrate_species_ids.empty?
+      substrate_species_ids.each do |substrate_species_id|
+        substrate.floral_species << FloralSpecies.find(substrate_species_id)
+      end
+    end
+    return substrate if substrate.save
     return nil
   end
 

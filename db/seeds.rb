@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-[Role, User, FloralSpecies, HabitatCategory].each(&:delete_all)
+[Role, User, FloralSpecies, HabitatCategory, SubstrateCategory].each(&:delete_all)
 
 roles = Role.create(
   [
@@ -160,6 +160,33 @@ habitat_categories = HabitatCategory.create(
     { name: "Urbano / industrijsko područje", floral_species_ids: [] },
     { name: "Kamenito tlo", floral_species_ids: (coniferous_ids + deciduous_ids + bushes_ids).flatten.uniq },
     { name: "Drugo", floral_species_ids: [] }
+  ]
+)
+
+substrate_categories = SubstrateCategory.create(
+  [
+    { name: "Zemljište", floral_species_ids: [] },
+    { name: "Stelja", floral_species_ids: [] },
+    { name: "Humus", floral_species_ids: [] },
+    { name: "Živo stablo", floral_species_ids: (coniferous_ids + deciduous_ids + orchard_ids).flatten.uniq },
+    { name: "Mrtvo uspravno stablo", floral_species_ids: (coniferous_ids + deciduous_ids + orchard_ids).flatten.uniq },
+    { name: "Ležeće deblo", floral_species_ids: (coniferous_ids + deciduous_ids + orchard_ids).flatten.uniq },
+    { name: "Ukopano drvo", floral_species_ids: [] },
+    { name: "Zgarište", floral_species_ids: [] },
+    { name: "Grane", floral_species_ids: (coniferous_ids + deciduous_ids + orchard_ids).flatten.uniq },
+    { name: "Panj", floral_species_ids: (coniferous_ids + deciduous_ids + orchard_ids).flatten.uniq },
+    { name: "Lišće", floral_species_ids: (coniferous_ids + deciduous_ids + orchard_ids).flatten.uniq },
+    { name: "Šišarka", floral_species_ids: coniferous_ids },
+    { name: "Žir", floral_species_ids: [] },
+    { name: "Zeljaste biljke", floral_species_ids: [] },
+    { name: "Mahovina", floral_species_ids: [] },
+    { name: "Paprat", floral_species_ids: [] },
+    { name: "Pesak", floral_species_ids: [] },
+    { name: "Treset", floral_species_ids: [] },
+    { name: "Životinja", floral_species_ids: [] },
+    { name: "Feces", floral_species_ids: [] },
+    { name: "Gljiva", floral_species_ids: [] },
+    { name: "Specifična", floral_species_ids: [] }
   ]
 )
 
