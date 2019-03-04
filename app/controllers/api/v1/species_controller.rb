@@ -6,7 +6,7 @@ module Api::V1
     before_action :get_species, only: [:show, :update, :destroy]
 
     def index
-      species = Species.order('name ASC').page(page_param).per(20)
+      species = Species.order('name ASC')
       render json: SpeciesSerializer.new(species).serialized_json
     end
 

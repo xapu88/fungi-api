@@ -6,7 +6,7 @@ module Api::V1
       user = User.new(user_params)
       if user.save
         created_jwt = Services::Auth.issue({user: user.id})
-        render json: { jwt: created_jwt }, status: 200
+        render json: { jwt: created_jwt, user_id: user.id }, status: 200
       else
         render json: { errors: user.errors }, status: 422
       end
