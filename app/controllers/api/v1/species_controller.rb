@@ -2,11 +2,16 @@ module Api::V1
   class SpeciesController < ApplicationController
     load_and_authorize_resource
 
-    skip_before_action :authenticate_user, only: [:index, :show]
+    skip_before_action :authenticate_user, only: [:index, :search, :show]
     before_action :get_species, only: [:show, :update, :destroy]
 
     def index
-      species = Species.order('name ASC')
+      species = Species.order('name ASC').page(page_param).per(50)
+      render json: SpeciesSerializer.new(species).serialized_json
+    end
+
+    def search
+      species = Species.where("name LIKE ?", "%#{params[:q]}%")
       render json: SpeciesSerializer.new(species).serialized_json
     end
 
