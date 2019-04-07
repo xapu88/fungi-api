@@ -6,7 +6,11 @@ module Api::V1
     before_action :get_observation, only: [:show, :update, :destroy]
 
     def index
-      observations = Observation.order('created_at DESC').page(page_param).per(20)
+      if params[:page].present?
+        observations = Observation.order('created_at DESC').page(page_param).per(20)
+      else
+        observations = Observation.order('created_at DESC')
+      end
       render json: ObservationSerializer.new(observations).serialized_json
     end
 
