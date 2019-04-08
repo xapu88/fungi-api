@@ -51,7 +51,7 @@ module Api::V1
       end
 
       def observation_params
-        params.require(:observation).permit(:description, :area, :location, :longitude, :latitude, :altitude, :quantity, :explored_surface, :sample, :external_url, :approved, :observed_at, :species_id)
+        params.require(:observation).permit(:description, :area, :location, :longitude, :latitude, :altitude, :quantity, :explored_surface, :sample, :external_url, :approved, :observed_at, :species_id, images: [])
       end
 
   end
