@@ -8,6 +8,6 @@ class ObservationSerializer
   belongs_to :substrate
 
   attribute :species_name do |object|
-    object.species.present? object.species.name : nil
+    object.species.present? ? object.species.name : nil
   end
 end
