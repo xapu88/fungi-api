@@ -5,6 +5,8 @@ class Observation < ApplicationRecord
   belongs_to :habitat, optional: true
   belongs_to :substrate, optional: true
 
+  has_many_attached :images
+
   validates :area, :location, :description, :observed_at, presence: true
   validates :area, :location, length: { minimum: 3, maximum: 100 }
   validates :description, length: { minimum: 10, maximum: 2000 }
