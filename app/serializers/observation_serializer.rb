@@ -10,4 +10,15 @@ class ObservationSerializer
   attribute :species_name do |object|
     object.species.present? ? object.species.name : nil
   end
+
+  attribute :images do |object|
+    imgs = []
+    if object.images.attached?
+      object.images.each do |img|
+        imgs << Rails.application.routes.url_helpers.rails_blob_path(img, only_path: true)
+      end
+    end
+    imgs
+  end
+
 end
