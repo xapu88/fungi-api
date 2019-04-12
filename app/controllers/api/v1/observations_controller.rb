@@ -28,12 +28,12 @@ module Api::V1
         if params[:images].present?
           params[:images].each_with_index do |base64_img, index|
             @decoded_file = Base64.decode64(base64_img)
-            @filename = "obs_#{observation.number}_#{index+1}"
+            @filename = "obs_#{observation.number}_#{index+1}.jpg"
             @tmp_file = Tempfile.new(@filename)
             @tmp_file.binmode
             @tmp_file.write @decoded_file
             @tmp_file.rewind()
-            observation.images.attach(io: @tmp_file, filename: @filename)
+            observation.images.attach(io: @tmp_file, filename: @filename, content_type: 'image/jpeg')
             @tmp_file.unlink
           end
         end
