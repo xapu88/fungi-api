@@ -26,14 +26,17 @@ module Api::V1
         observation.substrate = observation.create_substrate(params[:substrate_category_id], params[:substrate_note], params[:substrate_species_ids])
         observation.determinator = @current_user if observation.species_id.present?
         if params[:images].present?
-          params[:images].each_with_index do |base64_img, index|
+          params[:images].each_with_index do |base64_string, index|
+            content_type = base64_string[/(image\/[a-z]{3,4})|(application\/[a-z]{3,4})/]
+            content_type = content_type[/\b(?!.*\/).*/]
+            base64_img = base64_string.sub(/data:((image|application)\/.{3,}),/, '')
             @decoded_file = Base64.decode64(base64_img)
-            @filename = "obs_#{observation.number}_#{index+1}.jpg"
+            @filename = "obs_#{observation.number}_#{index+1}.#{content_type}"
             @tmp_file = Tempfile.new(@filename)
             @tmp_file.binmode
             @tmp_file.write @decoded_file
             @tmp_file.rewind()
-            observation.images.attach(io: @tmp_file, filename: @filename, content_type: 'image/jpeg')
+            observation.images.attach(io: @tmp_file, filename: @filename)
             @tmp_file.unlink
           end
         end
