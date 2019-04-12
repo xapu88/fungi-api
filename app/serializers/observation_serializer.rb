@@ -11,12 +11,14 @@ class ObservationSerializer
     object.species.present? ? object.species.name : nil
   end
 
+  attribute :legator_username do |object|
+    object.legator.present? ? object.legator.username : nil
+  end
+
   attribute :images do |object|
     imgs = []
-    if object.images.attached?
-      object.images.each do |img|
-        imgs << Rails.application.routes.url_helpers.rails_blob_path(img, only_path: true)
-      end
+    object.images.each do |img|
+      imgs << Rails.application.routes.url_helpers.rails_blob_path(img, only_path: true)
     end
     imgs
   end

@@ -21,22 +21,27 @@ module Api::V1
     def create
       observation = Observation.new(observation_params)
       observation.legator = @current_user if @current_user.present?
-      observation.habitat = observation.create_habitat(params[:habitat_category_id], params[:habitat_note], params[:habitat_species_ids])
-      observation.substrate = observation.create_substrate(params[:substrate_category_id], params[:substrate_note], params[:substrate_species_ids])
-      if params[:images].present?
-        params[:images].each do |base64_img|
-          @decoded_file = Base64.decode64(base64_img)
-          @filename = "obs_#{Time.zone.now.to_s}"            # this will be used to create a tmpfile and also, while setting the filename to attachment
-          @tmp_file = Tempfile.new(@filename)        # This creates an in-memory file
-          @tmp_file.binmode                          # This helps writing the file in binary mode.
-          @tmp_file.write @decoded_file
-          @tmp_file.rewind()
-          observation.images.attach(io: @tmp_file, filename: @filename) # attach the created in-memory file, using the filename defined above
-          @tmp_file.unlink # deletes the temp file
-        end
-      end
       if observation.save
-        render json: ObservationSerializer.new(observation).serialized_json, status: 200
+        observation.habitat = observation.create_habitat(params[:habitat_category_id], params[:habitat_note], params[:habitat_species_ids])
+        observation.substrate = observation.create_substrate(params[:substrate_category_id], params[:substrate_note], params[:substrate_species_ids])
+        observation.determinator = @current_user if observation.species_id.present?
+        if params[:images].present?
+          params[:images].each_with_index do |base64_img, index|
+            @decoded_file = Base64.decode64(base64_img)
+            @filename = "obs_#{observation.number}_#{index+1}"
+            @tmp_file = Tempfile.new(@filename)
+            @tmp_file.binmode
+            @tmp_file.write @decoded_file
+            @tmp_file.rewind()
+            observation.images.attach(io: @tmp_file, filename: @filename)
+            @tmp_file.unlink
+          end
+        end
+        if observation.save
+          render json: ObservationSerializer.new(observation).serialized_json, status: 200
+        else
+          render json: { errors: observation.errors }, status: 422
+        end
       else
         render json: { errors: observation.errors }, status: 422
       end

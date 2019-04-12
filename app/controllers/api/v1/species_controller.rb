@@ -7,9 +7,9 @@ module Api::V1
 
     def index
       if params[:page].present?
-        species = Species.order('name ASC').page(page_param).per(50)
+        species = Species.includes(:observations).order('name ASC').page(page_param).per(50)
       else
-        species = Species.order('name ASC')
+        species = Species.includes(:observations).order('name ASC')
       end
       render json: SpeciesSerializer.new(species).serialized_json
     end
