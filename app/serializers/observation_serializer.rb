@@ -6,6 +6,7 @@ class ObservationSerializer
   belongs_to :species, record_type: :species
   belongs_to :habitat
   belongs_to :substrate
+  has_many :comments, record_type: :comment
 
   attribute :species_name do |object|
     object.species.present? ? object.species.name : nil

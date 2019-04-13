@@ -4,6 +4,7 @@ class Observation < ApplicationRecord
   belongs_to :species, optional: true
   belongs_to :habitat, optional: true
   belongs_to :substrate, optional: true
+  has_many :comments, dependent: :destroy
 
   has_many_attached :images
 

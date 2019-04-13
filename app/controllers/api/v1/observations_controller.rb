@@ -7,9 +7,9 @@ module Api::V1
 
     def index
       if params[:page].present?
-        observations = Observation.with_attached_images.includes(:legator, :determinator, :species).order('created_at DESC').page(page_param).per(20)
+        observations = Observation.with_attached_images.includes(:legator, :determinator, :species, :comments).order('created_at DESC').page(page_param).per(20)
       else
-        observations = Observation.with_attached_images.includes(:legator, :determinator, :species).order('created_at DESC')
+        observations = Observation.with_attached_images.includes(:legator, :determinator, :species, :comments).order('created_at DESC')
       end
       render json: ObservationSerializer.new(observations).serialized_json
     end
@@ -67,7 +67,7 @@ module Api::V1
     private
 
       def get_observation
-        @observation = Observation.with_attached_images.includes(:legator, :determinator, :species).find(params[:id])
+        @observation = Observation.with_attached_images.includes(:legator, :determinator, :species, :comments).find(params[:id])
       end
 
       def observation_params
