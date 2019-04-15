@@ -57,3 +57,4 @@ gem 'jwt' # for JSON Web Token based authentication, in our case using httponly 
 gem 'kaminari-activerecord' # for pagination
 gem 'cancancan', '~> 2.0' # for authorization (admin, moderator and regular user access)
 gem "aws-sdk-s3", require: false
+gem 'ransack', github: 'activerecord-hackery/ransack'

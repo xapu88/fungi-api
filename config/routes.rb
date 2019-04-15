@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       resources :users, except: :index
       resources :observations do
         resources :comments
+        collection do
+          get 'search'
+        end
       end
       resources :species do
         collection do

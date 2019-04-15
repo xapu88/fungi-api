@@ -2,7 +2,7 @@ module Api::V1
   class ObservationsController < ApplicationController
     load_and_authorize_resource
 
-    skip_before_action :authenticate_user, only: [:index, :show]
+    skip_before_action :authenticate_user, only: [:index, :show, :search]
     before_action :get_observation, only: [:show, :update, :destroy]
 
     def index
@@ -63,6 +63,15 @@ module Api::V1
       head :ok
     end
 
+    def search
+      @q = Observation.ransack(params[:q])
+      if params[:page].present?
+        observations = @q.result.includes(:legator, :determinator, :species, :comments).order('created_at DESC').page(page_param).per(20)
+      else
+        observations = @q.result.includes(:legator, :determinator, :species, :comments).order('created_at DESC')
+      end
+      render json: ObservationSerializer.new(observations).serialized_json
+    end
 
     private
 
