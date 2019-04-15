@@ -5,7 +5,9 @@ Rails.application.routes.draw do
       post '/register', to: "registrations#create"
       post '/login', to: "sessions#create"
       resources :users, except: :index
-      resources :observations
+      resources :observations do
+        resources :comments
+      end
       resources :species do
         collection do
           get 'search'
@@ -16,7 +18,6 @@ Rails.application.routes.draw do
       resources :substrates
       resources :substrate_categories
       resources :floral_species
-      resources :comments
     end
   end
 end

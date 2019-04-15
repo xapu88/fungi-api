@@ -1,7 +1,13 @@
 module Api::V1
   class CommentsController < ApplicationController
 
+    skip_before_action :authenticate_user, only: [:index]
     before_action :get_comment, only: [:update, :destroy]
+
+    def index
+      comments = Comment.where(observation_id: params[:observation_id])
+      render json: CommentSerializer.new(comments).serialized_json
+    end
 
     def create
       comment = Comment.new(comment_params)
