@@ -15,6 +15,7 @@ class Ability
       can :delete, Observation, legator_id: user.id
       can :search, Observation
       can :search, Species
+      can :create, Comment
       can :update, Comment, user_id: user.id
       can :delete, Comment, user_id: user.id
     end
