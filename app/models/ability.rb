@@ -15,6 +15,8 @@ class Ability
       can :delete, Observation, legator_id: user.id
       can :search, Observation
       can :search, Species
+      can :update, Comment, user_id: user.id
+      can :delete, Comment, user_id: user.id
     end
     # Define abilities for the passed in user here. For example:
     #
