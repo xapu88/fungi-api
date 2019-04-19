@@ -6,10 +6,14 @@ module Api::V1
     before_action :get_observation, only: [:show, :update, :destroy]
 
     def index
-      if params[:page].present?
-        observations = Observation.with_attached_images.includes(:legator, :determinator, :species, :comments).order('created_at DESC').page(page_param).per(20)
+      if params[:q].present?
+        @q = Observation.ransack(params[:q])
+        observations = @q.result.with_attached_images.includes(:legator, :determinator, :species, :comments).order('created_at DESC')
       else
         observations = Observation.with_attached_images.includes(:legator, :determinator, :species, :comments).order('created_at DESC')
+      end
+      if params[:page].present?
+        observations = observations.page(page_param).per(20)
       end
       render json: ObservationSerializer.new(observations).serialized_json
     end
@@ -61,16 +65,6 @@ module Api::V1
     def destroy
       @observation.destroy
       head :ok
-    end
-
-    def search
-      @q = Observation.ransack(params[:q])
-      if params[:page].present?
-        observations = @q.result.includes(:legator, :determinator, :species, :comments).order('created_at DESC').page(page_param).per(20)
-      else
-        observations = @q.result.includes(:legator, :determinator, :species, :comments).order('created_at DESC')
-      end
-      render json: ObservationSerializer.new(observations).serialized_json
     end
 
     private
